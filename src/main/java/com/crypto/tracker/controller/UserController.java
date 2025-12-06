@@ -6,7 +6,7 @@ import com.crypto.tracker.service.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://portfolio-tracker-react-production.up.railway.app"})
 public class UserController {
 
     private final UserService userService;
