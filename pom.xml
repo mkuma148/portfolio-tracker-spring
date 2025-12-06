@@ -3,7 +3,7 @@
   <groupId>com.crypto.tracker</groupId>
   <artifactId>portfolio-backend</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>portfolio-backend</name>
   <description>portfolio-backend</description>
   
