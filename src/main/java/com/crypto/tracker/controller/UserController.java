@@ -1,7 +1,11 @@
 package com.crypto.tracker.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.crypto.tracker.model.User;
+
+import com.crypto.tracker.dto.request.RegistrationRequest;
+import com.crypto.tracker.dto.response.RegistrationResponse;
 import com.crypto.tracker.service.UserService;
 
 @RestController
@@ -16,8 +20,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public User signup(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
-        return userService.signup(username, password, email);
+    public ResponseEntity<RegistrationResponse> signup(@RequestBody RegistrationRequest request) {
+        Long id = userService.signup(request.getUsername(), request.getPassword(), request.getEmail());
+        System.out.println("ID "+ id);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new RegistrationResponse(id, "User registered successfully"));
     }
 
     @PostMapping("/login")

@@ -17,20 +17,20 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User signup(String username, String rawPassword, String email) {
-    	System.out.println("XXX "+userRepository.findByUsername(username));
-        if (userRepository.findByUsername(username).isPresent()) {
+    public Long signup(String username, String rawPassword, String email) {
+    	System.out.println("XXX "+userRepository.findByName(username));
+        if (userRepository.findByName(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
         User user = new User();
-        user.setUsername(username);
+        user.setName(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(rawPassword));
-        return userRepository.save(user);
+        return userRepository.save(user).getId();
     }
 
     public boolean login(String username, String rawPassword) {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByName(username);
         if (user == null) return false;
         return passwordEncoder.matches(rawPassword, user.get().getPassword());
     }
