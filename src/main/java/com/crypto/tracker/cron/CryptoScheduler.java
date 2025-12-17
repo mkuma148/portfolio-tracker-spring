@@ -13,8 +13,10 @@ public class CryptoScheduler {
         this.cmcService = cmcService;
     }
 
-    // Runs every 1 hour
-    @Scheduled(cron = "0 0 * * * *")
+//    // Runs every 1 hour
+//    @Scheduled(cron = "0 0 * * * *")
+    // Runs every 5 minutes
+    @Scheduled(cron = "0 */5 * * * *")
     public void runCryptoTasks() {
         System.out.println("Running scheduled crypto tasks...");
 

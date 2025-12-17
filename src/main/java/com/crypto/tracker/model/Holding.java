@@ -25,6 +25,9 @@ public class Holding {
 
     @Column(precision = 30, scale = 18)
     private BigDecimal lastPrice;
+    
+    @Column(precision = 30, scale = 18)
+    private BigDecimal buyFee;
 
     @Column(precision = 30, scale = 18)
     private BigDecimal totalValue;
@@ -97,5 +100,13 @@ public class Holding {
 
 	public void setCoinLogo(CoinLogo coinLogo) {
 		this.coinLogo = coinLogo;
+	}
+
+	public BigDecimal getBuyFee() {
+		return buyFee;
+	}
+
+	public void setBuyFee(BigDecimal buyFee) {
+		this.buyFee = buyFee;
 	}
 }

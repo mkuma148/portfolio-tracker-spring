@@ -29,7 +29,7 @@ public class CoinLogoService {
 
     public void fetchAndStoreTopLogos() {
         try {
-            String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=BTC,ETH";
+            String url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info?symbol=BTC,ETH,KAS";
             RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.set("X-CMC_PRO_API_KEY", apiKey);
@@ -41,14 +41,14 @@ public class CoinLogoService {
             
             System.out.println("data "+data);
 
-            for (int i = 0; i < data.length(); i++) {
-            	JSONObject coin = data.getJSONObject("BTC");
+            for (String symbol : data.keySet()) {
+                JSONObject coin = data.getJSONObject(symbol);
                 String logoUrl = coin.has("logo") ? coin.getString("logo") : "";
 
-                coinLogoRepository.findBySymbol("BTC")
+                coinLogoRepository.findBySymbol(symbol)
                         .orElseGet(() -> {
                             CoinLogo cl = new CoinLogo();
-                            cl.setSymbol("BTC");
+                            cl.setSymbol(symbol);
                             cl.setLogoUrl(logoUrl);
                             return coinLogoRepository.save(cl);
                         });
