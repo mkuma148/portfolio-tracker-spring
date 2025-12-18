@@ -32,31 +32,45 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String header = request.getHeader("Authorization");
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7).trim();
+        // ✅ No token → move on
+        if (header == null || !header.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            try {
-                Claims claims = jwtUtil.getClaims(token);
-                String username = claims.getSubject();
+        String token = header.substring(7).trim();
 
-                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        // ✅ Empty token → move on
+        if (token.isEmpty()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-                    var userDetails = userDetailsService.loadUserByUsername(username);
+        try {
+            Claims claims = jwtUtil.getClaims(token);
+            String username = claims.getSubject();
 
-                    UsernamePasswordAuthenticationToken auth =
-                            new UsernamePasswordAuthenticationToken(
-                                    userDetails,
-                                    null,
-                                    userDetails.getAuthorities()
-                            );
+            if (username != null &&
+                    SecurityContextHolder.getContext().getAuthentication() == null) {
 
-                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                var userDetails = userDetailsService.loadUserByUsername(username);
 
-                    SecurityContextHolder.getContext().setAuthentication(auth);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails,
+                                null,
+                                userDetails.getAuthorities()
+                        );
+
+                auth.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request)
+                );
+
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
+
+        } catch (Exception ex) {
+        	ex.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
