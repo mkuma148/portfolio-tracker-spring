@@ -38,8 +38,6 @@ public class CoinLogoService {
 
             JSONObject json = new JSONObject(response.getBody());
             JSONObject data = json.getJSONObject("data"); // JSONObject, not JSONArray
-            
-            System.out.println("data "+data);
 
             for (String symbol : data.keySet()) {
                 JSONObject coin = data.getJSONObject(symbol);
@@ -54,8 +52,6 @@ public class CoinLogoService {
                         });
             }
 
-            System.out.println("Top 500 logos saved successfully!");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,6 +60,5 @@ public class CoinLogoService {
     @Transactional
     public void deleteAllLogos() {
         coinLogoRepository.deleteAll();
-        System.out.println("All coin logos deleted successfully!");
     }
 }

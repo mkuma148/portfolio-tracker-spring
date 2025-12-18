@@ -81,7 +81,6 @@ public class WalletService {
 			try {
 				Claims claims = jwtUtil.getClaims(token);
 				email = claims.getSubject();
-				System.out.println("email " + email);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}

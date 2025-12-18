@@ -73,7 +73,6 @@ public class AuthController {
     claims.put("picture", user.getAvatar());
 
     String token = jwtUtil.generateToken(user.getEmail(), claims);
-    System.out.println("Token "+token);
     return ResponseEntity.ok(Map.of("token", token));
   }
 
@@ -155,7 +154,6 @@ public class AuthController {
     claims.put("picture", user.getAvatar());
 
     String token = jwtUtil.generateToken(user.getEmail(), claims);
-    System.out.println("Token "+token);
     return ResponseEntity.ok(Map.of("token", token));
   }
 }

@@ -50,7 +50,6 @@ public class HoldingController {
     
 	@PostMapping("/add")
 	public void addHolding(@RequestBody AddHoldingRequest request, @RequestHeader("Authorization") String authHeader) {
-		System.out.println("request");
 		holdingService.addHolding(request, authHeader);
 	}
 

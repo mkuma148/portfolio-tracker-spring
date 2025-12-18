@@ -22,7 +22,6 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<RegistrationResponse> signup(@RequestBody RegistrationRequest request) {
         Long id = userService.signup(request.getUsername(), request.getPassword(), request.getEmail());
-        System.out.println("ID "+ id);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new RegistrationResponse(id, "User registered successfully"));
     }

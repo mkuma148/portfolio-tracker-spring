@@ -18,7 +18,6 @@ public class UserService {
     }
 
     public Long signup(String username, String rawPassword, String email) {
-    	System.out.println("XXX "+userRepository.findByName(username));
         if (userRepository.findByName(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }

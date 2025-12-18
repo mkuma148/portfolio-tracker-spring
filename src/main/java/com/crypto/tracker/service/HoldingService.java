@@ -82,13 +82,11 @@ public class HoldingService {
     	String email = null;
     	
     	if (authHeader != null && authHeader.startsWith("Bearer ")) {
-        	System.out.println("header.startsWith(\"Bearer \") "+authHeader.startsWith("Bearer "));
             String token = authHeader.substring(7).trim();
 
             try {
                 Claims claims = jwtUtil.getClaims(token);
                 email = claims.getSubject();
-                System.out.println("email "+ email);
             }catch (Exception ex) {
             	ex.printStackTrace();
             }

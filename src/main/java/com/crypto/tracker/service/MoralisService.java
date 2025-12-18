@@ -136,7 +136,6 @@ public class MoralisService {
 
 		HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 		if (response.statusCode() != 200) {
-			System.out.println("Failed to fetch " + chain + ": " + response.body());
 			return holdings; // empty list
 		}
 
@@ -144,8 +143,6 @@ public class MoralisService {
 		JsonNode results = root.get("result");
 		if (results == null || !results.isArray())
 			return holdings;
-
-		System.out.println("results " + results);
 
 		for (JsonNode token : results) {
 			try {

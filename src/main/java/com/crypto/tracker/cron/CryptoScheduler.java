@@ -18,14 +18,9 @@ public class CryptoScheduler {
     // Runs every 5 minutes
     @Scheduled(cron = "0 */5 * * * *")
     public void runCryptoTasks() {
-        System.out.println("Running scheduled crypto tasks...");
 
         try {
             cmcService.fetchAndSavePrice("BTC,ETH,KAS,SOL,XRP,ADA,DOT,DOGE,BNB,LTC");
-            // future me yaha aur tasks add kar sakte ho
-            // fetchTransactions()
-            // updateHoldings()
-            // calculatePortfolioValue()
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,7 +20,6 @@ public class CoinLogoController {
     @GetMapping("/fetch")
     public String fetchTopLogos() {
         try {
-        	System.out.println("Time zone "+java.util.TimeZone.getDefault());
             coinLogoService.fetchAndStoreTopLogos(); // ye service me implement hoga
             return "logos saved successfully!";
         } catch (Exception e) {

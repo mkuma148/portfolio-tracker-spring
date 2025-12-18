@@ -39,7 +39,6 @@ public class CoinMarketCapService {
 		HttpEntity<String> entity = new HttpEntity<>(headers);
 		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
 
-		System.out.println("Hello, Mukesh! 😎 " + response.getBody());
 		JSONObject json = new JSONObject(response.getBody());
 		JSONObject data = json.getJSONObject("data");
 
@@ -56,10 +55,7 @@ public class CoinMarketCapService {
 			priceRepository.save(p);
 			savedPrices.add(p);
 
-			System.out.println(symbol + " : " + price);
 		}
-
-		System.out.println("All prices saved successfully!");
 
 		return savedPrices;
 	}
